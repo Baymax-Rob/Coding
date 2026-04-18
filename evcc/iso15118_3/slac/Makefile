@@ -11,7 +11,7 @@ LIBMME_A_BIN = $(LIBMME_DIR)/libmme.a
 
 RESPONSE_FILE=extra_flags
 
-INCLUDES = -Iinc -I$(BASE_DIR)/libmme/inc
+INCLUDES = -Iinc -I../libmme/inc -I../interfaces/c_api
 CFLAGS += $(INCLUDES) -Wall
 LDFLAGS += -static -L../libmme -lmme -lrt -lpthread
 

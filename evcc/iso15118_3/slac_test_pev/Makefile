@@ -1,3 +1,6 @@
+BASE_DIR := ../..
+include $(BASE_DIR)/Makefile.inc
+
 OBJPATH=obj
 API_SRC=../interfaces/c_api/slac_api.c
 API_OBJ=$(OBJPATH)/slac_api.o

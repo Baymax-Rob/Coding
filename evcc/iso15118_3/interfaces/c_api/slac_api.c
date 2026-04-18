@@ -108,6 +108,26 @@ static void free_evse_list(evse_item *head)
     }
 }
 
+static slac_err_t precheck_vendor_status(void *opened_interface)
+{
+    int st = vs_get_status_req_send_cnf_receive(opened_interface);
+    if (st == CONNECT_LINK)
+        return SLAC_ERR_PROTOCOL;
+    if (st == ERROR_LINK)
+        return SLAC_ERR_TRANSPORT;
+    return SLAC_OK;
+}
+
+static int verify_vendor_connected(void *opened_interface)
+{
+    int st = vs_get_status_cnf_receive(opened_interface);
+    if (st != CONNECT_LINK && st != ERROR_LINK)
+    {
+        st = vs_get_status_req_send_cnf_receive(opened_interface);
+    }
+    return st == CONNECT_LINK;
+}
+
 slac_err_t slac_match_once(
     slac_client_t *client,
     const slac_match_request_t *req,
@@ -156,18 +176,12 @@ slac_err_t slac_match_once(
 
     if (req->vendor_status_check && !req->alias_mac_compatible)
     {
-        int st = vs_get_status_req_send_cnf_receive(client->opened_interface);
-        if (st == CONNECT_LINK)
+        slac_err_t check = precheck_vendor_status(client->opened_interface);
+        if (check != SLAC_OK)
         {
             free_evse_list(pev_ctx.evse_item_head);
             DEBUG_DISPLAY = prev_debug;
-            return SLAC_ERR_PROTOCOL;
-        }
-        if (st == ERROR_LINK)
-        {
-            free_evse_list(pev_ctx.evse_item_head);
-            DEBUG_DISPLAY = prev_debug;
-            return SLAC_ERR_TRANSPORT;
+            return check;
         }
     }
 
@@ -296,12 +310,7 @@ slac_err_t slac_match_once(
 
     if (out->matched && req->vendor_status_check && !req->alias_mac_compatible)
     {
-        int st = vs_get_status_cnf_receive(client->opened_interface);
-        if (st != CONNECT_LINK && st != ERROR_LINK)
-        {
-            st = vs_get_status_req_send_cnf_receive(client->opened_interface);
-        }
-        if (st != CONNECT_LINK)
+        if (!verify_vendor_connected(client->opened_interface))
         {
             out->matched = 0;
             error_flag = 1;

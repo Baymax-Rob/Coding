@@ -221,9 +221,10 @@ slac_test_pev_main (int argc, char *argv[])
             break;
         case 'h':
             pev_print_usage ();
-            break;
+            return 0;
         default:
             pev_print_usage ();
+            return 1;
         }
     }
 #endif //__linux__
@@ -233,6 +234,7 @@ slac_test_pev_main (int argc, char *argv[])
         printf ("please specify your network interface. \
 [-i <network interface name>]\n");
         pev_print_usage ();
+        return 1;
     }
 #ifdef __linux__
     if (options.alias_mac_compatible)
@@ -249,6 +251,7 @@ slac_test_pev_main (int argc, char *argv[])
         printf ("please specify your NID and NMK configuration file. \
 [-f <file name>]\n");
         pev_print_usage ();
+        return 1;
     }
 
     if (options.mstar_test_flag)

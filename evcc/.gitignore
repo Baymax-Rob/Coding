@@ -1,0 +1,15 @@
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.exe
+*.out
+
+main
+
+**/obj/
+**/*.d
+
+.DS_Store
+Thumbs.db
