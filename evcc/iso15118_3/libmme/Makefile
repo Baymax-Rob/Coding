@@ -1,4 +1,4 @@
-BASE := ..
+BASE := ../..
 include $(BASE)/Makefile.inc
 
 STAT_LIB=libmme.a

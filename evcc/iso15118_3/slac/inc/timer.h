@@ -39,6 +39,8 @@ slac_get_sys_time(struct hpav_sys_time* sys_time);
     TIMER_ERROR = -1
 } timer_error_t;
 
+void
+sleep_ms (int milliseconds);
 
 /**
  * Print the current time.

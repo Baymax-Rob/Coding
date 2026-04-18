@@ -136,8 +136,8 @@ pev_cm_slac_match_cnf_receive (void *opened_interface, pev *pev);
  * \param  iname  interface name
  * \param  nid  NID that you want to set
  * \param  nmk  NMK that you want to set
- * \param  alias_mac_compatible  indicate whether to set key with other specific alias mac address
  * \param  test_flag  MSTAR internal test flag
+ * \param  alias_mac_compatible  indicate whether to set key with other specific alias mac address
  * \param  debug  print debug information if set this flag
  * \param  loop  execute the program constantly if set this flag
  * \param  exec_disconnection  execute disconnection after SLAC if set this flag
@@ -145,7 +145,7 @@ pev_cm_slac_match_cnf_receive (void *opened_interface, pev *pev);
  */
 int
 pev_main (char *iname, unsigned char nid[7], unsigned char nmk[16],
-    int alias_mac_compatible, int test_flag, int debug, int loop,
+    int test_flag, int alias_mac_compatible, int debug, int loop,
     int exec_disconnection);
 
 

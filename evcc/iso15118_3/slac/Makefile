@@ -1,14 +1,11 @@
-BASE_DIR := ..
+BASE_DIR := ../..
 include $(BASE_DIR)/Makefile.inc
 
-BIN1=evse
-EVSE_A_BIN=evse.a
-BIN2=pev
 PEV_A_BIN=pev.a
 OBJPATH=obj
 SRCPATH=src
 
-LIBMME_DIR = $(BASE_DIR)/libmme
+LIBMME_DIR = ../libmme
 LIBMME_SO_BIN = $(LIBMME_DIR)/libmme.so
 LIBMME_A_BIN = $(LIBMME_DIR)/libmme.a
 
@@ -26,12 +23,7 @@ OBJS=$(addprefix $(OBJPATH)/,$(SRCS:.c=.o))
 DEPS=$(patsubst %o,%d,$(OBJS))
 
 
-all: $(EVSE_A_BIN) $(PEV_A_BIN)
-
-$(EVSE_A_BIN): $(OBJS) $(LIBMME_A_BIN)
-	$(AR) cr $@ $(OBJPATH)/evse.o $(OBJPATH)/evse_slac.o \
-$(OBJPATH)/nodeListOperation.o $(OBJPATH)/timerOperation.o \
-$(OBJPATH)/mstar_vs.o
+all: $(PEV_A_BIN)
 
 $(PEV_A_BIN): $(OBJS) $(LIBMME_A_BIN)
 	$(AR) cr $@ $(OBJPATH)/pev.o $(OBJPATH)/pev_slac.o \

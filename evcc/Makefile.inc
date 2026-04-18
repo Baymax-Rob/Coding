@@ -1,7 +1,7 @@
 ## Compiler to use (modify this for cross compile).
 CC = $(CROSS_COMPILE)gcc
 ## Other tools you need to modify for cross compile (static lib only).
-AR = $(CORSS_COMPILE)ar
+AR = $(CROSS_COMPILE)ar
 RANLIB = $(CROSS_COMPILE)ranlib
 
 ## Uncomment this to build tools using static version of the library.
